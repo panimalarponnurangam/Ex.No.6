@@ -77,11 +77,19 @@ average_score_from_csv("data.csv")
 | Feature          | ChatGPT (GPT-4)          | Gemini (Google)           | Copilot (Microsoft)              |
 | ---------------- | ------------------------ | ------------------------- | -------------------------------- |
 | **Approach**     | `csv.DictReader`         | `pandas.read_csv()`       | Manual line + split parsing      |
-| **Readability**  |  Clear & standard       |  Very readable & concise | ⚠ Prone to CSV format issues    |
-| **Correctness**  |  High                   |  High                    | ⚠ Risky if CSV has extra fields |
+| **Readability**  |  Clear & standard       |  Very readable & concise |  Prone to CSV format issues    |
+| **Correctness**  |  High                   |  High                    |  Risky if CSV has extra fields |
 | **Dependencies** |  None (Standard lib)    | Needs `pandas`         |  None                           |
 | **Robustness**   |  With `if row['Score']` | NaN-safe via `mean()`   |  Assumes last column = Score    |
 | **Ease of Use**  | Simple                 | If pandas installed     | Very minimal                   |
+
+## Insight
+### ChatGPT:
+ gives the most balanced and robust solution, suitable for real-world usage.
+### Gemini:
+ provides the most concise solution (if you're okay with external libraries).
+### Copilot:
+ gives quick and minimal code, but lacks data validation.
 
 
 # comclusion
