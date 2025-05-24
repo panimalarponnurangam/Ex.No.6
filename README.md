@@ -3,8 +3,10 @@
 ### Date:
 ### Register no:212222110031
 ### NAME: PANIMALAR P
+
 # Aim: 
-Write and implement Python code that integrates with multiple AI tools to automate the task of interacting with APIs, comparing outputs, and generating actionable insights with Multiple AI Tools
+Write and implement Python code that integrates with multiple AI tools to automate the task of interacting with APIs, 
+comparing outputs, and generating actionable insights with Multiple AI Tools
 
 # Algorithm
 - Define a prompt or task to test (e.g., sentiment analysis or summarization).
@@ -28,6 +30,7 @@ Write and implement Python code that integrates with multiple AI tools to automa
 "Write a Python program to read a CSV file, calculate the average of a numeric column named 'Score', and print the result."
 
 ### 1. ChatGPT (OpenAI GPT-4)
+
 ````
 import csv
 
@@ -43,6 +46,7 @@ calculate_average_score('data.csv')
 ````
 
 ## 2. Gemini (Google AI)
+
 ````
 import pandas as pd
 
@@ -56,6 +60,7 @@ average_score("data.csv")
 ````
 
 ## 3.Copilot 
+
 ````
 def average_score_from_csv(file_path):
     total = 0
@@ -83,7 +88,9 @@ average_score_from_csv("data.csv")
 | **Robustness**   |  With `if row['Score']` | NaN-safe via `mean()`   |  Assumes last column = Score    |
 | **Ease of Use**  | Simple                 | If pandas installed     | Very minimal                   |
 
+
 ## Insight
+
 ### ChatGPT:
  gives the most balanced and robust solution, suitable for real-world usage.
 ### Gemini:
