@@ -24,73 +24,67 @@ Write and implement Python code that integrates with multiple AI tools to automa
 - Recommended tool based on accuracy or context suitability
 - Log file for audits
 
- # Required Libraries
- ````
-pip install openai transformers cohere scikit-learn pandas python-dotenv
+## Prompt
+"Write a Python program to read a CSV file, calculate the average of a numeric column named 'Score', and print the result."
+
+### 1. ChatGPT (OpenAI GPT-4)
 ````
-# Python Code
+import csv
+
+def calculate_average_score(filename):
+    with open(filename, newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        scores = [float(row['Score']) for row in reader if row['Score']]
+    average = sum(scores) / len(scores)
+    print(f"Average Score: {average:.2f}")
+
+# Example usage
+calculate_average_score('data.csv')
 ````
-import openai
-import cohere
-from transformers import pipeline
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.feature_extraction.text import TfidfVectorizer
+
+## 2. Gemini (Google AI)
+````
 import pandas as pd
-import os
-from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
-co = cohere.Client(os.getenv("COHERE_API_KEY"))
+def average_score(filepath):
+    df = pd.read_csv(filepath)
+    average = df['Score'].mean()
+    print(f"Average Score: {average:.2f}")
 
-# Step 1: Define input
-task_prompt = "Summarize the importance of cybersecurity in IoT systems."
-
-# Step 2: Get OpenAI response
-def get_openai_response(prompt):
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo", 
-        messages=[{"role": "user", "content": prompt}]
-    )
-    return response.choices[0].message.content.strip()
-
-# Step 3: Get Cohere response
-def get_cohere_response(prompt):
-    response = co.generate(model="command", prompt=prompt, max_tokens=100)
-    return response.generations[0].text.strip()
-
-# Step 4: Get Hugging Face response (using summarization pipeline)
-def get_huggingface_response(prompt):
-    summarizer = pipeline("summarization")
-    return summarizer(prompt, max_length=60, min_length=30, do_sample=False)[0]['summary_text']
-
-# Step 5: Compare outputs
-def compare_responses(responses):
-    vectorizer = TfidfVectorizer().fit_transform(responses)
-    similarity = cosine_similarity(vectorizer)
-    return similarity
-
-# Execution
-responses = {
-    "OpenAI": get_openai_response(task_prompt),
-    "Cohere": get_cohere_response(task_prompt),
-    "HuggingFace": get_huggingface_response(task_prompt)
-}
-
-# Similarity matrix
-similarity_matrix = compare_responses(list(responses.values()))
-
-# Reporting
-df = pd.DataFrame(responses.items(), columns=["Tool", "Response"])
-print(df)
-print("\nSimilarity Matrix:")
-print(pd.DataFrame(similarity_matrix, index=responses.keys(), columns=responses.keys()))
+# Example usage
+average_score("data.csv")
 ````
-# Output
-![image](https://github.com/user-attachments/assets/15b2b538-c279-41ed-b438-71c374501aac)
 
-# Result
+## 3.Copilot 
+````
+def average_score_from_csv(file_path):
+    total = 0
+    count = 0
+    with open(file_path, 'r') as file:
+        next(file)  # skip header
+        for line in file:
+            score = float(line.strip().split(',')[-1])
+            total += score
+            count += 1
+    print("Average Score:", total / count)
+
+# Example
+average_score_from_csv("data.csv")
+````
+
+##  Comparison Table
+
+| Feature          | ChatGPT (GPT-4)          | Gemini (Google)           | Copilot (Microsoft)              |
+| ---------------- | ------------------------ | ------------------------- | -------------------------------- |
+| **Approach**     | `csv.DictReader`         | `pandas.read_csv()`       | Manual line + split parsing      |
+| **Readability**  |  Clear & standard       |  Very readable & concise | ⚠ Prone to CSV format issues    |
+| **Correctness**  |  High                   |  High                    | ⚠ Risky if CSV has extra fields |
+| **Dependencies** |  None (Standard lib)    | Needs `pandas`         |  None                           |
+| **Robustness**   |  With `if row['Score']` | NaN-safe via `mean()`   |  Assumes last column = Score    |
+| **Ease of Use**  | Simple                 | If pandas installed     | Very minimal                   |
+
+
+# comclusion
 This Python-based automation system successfully integrates multiple AI APIs to standardize input prompts, retrieve model outputs, compare them semantically, and produce actionable insights. The solution can be extended further to support bulk prompts, visualization dashboards, or automated reporting pipelines. It provides a valuable framework for benchmarking AI tools, conducting experiments, or even choosing the most suitable LLM for specific tasks in production environments.
 
 
