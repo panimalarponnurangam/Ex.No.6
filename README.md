@@ -92,7 +92,7 @@ average_score_from_csv("data.csv")
  gives quick and minimal code, but lacks data validation.
 
 
-# comclusion
+# conclusion
 This Python-based automation system successfully integrates multiple AI APIs to standardize input prompts, retrieve model outputs, compare them semantically, and produce actionable insights. The solution can be extended further to support bulk prompts, visualization dashboards, or automated reporting pipelines. It provides a valuable framework for benchmarking AI tools, conducting experiments, or even choosing the most suitable LLM for specific tasks in production environments.
 
 
